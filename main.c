@@ -96,7 +96,11 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
 			d += 1;
 		}
 		y[i]=100*tan(d/10);//(10*d)+100;
-		if(y[i]<(SCREEN_HEIGHT+200)){
+		if(y[i] > SCREEN_WIDTH + 200 || y[i] < -(SCREEN_WIDTH + 200)){
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i]), x+INCR,
+			(SCREEN_HEIGHT/2)-(y[i]));
+		}
+		else{
 			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i-1]), x+INCR,
 			(SCREEN_HEIGHT/2)-(y[i]));
 		}
@@ -110,7 +114,11 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
 			d -= 1;
 		}
 		y[i]=100*tan(d/10);
-		if(y[i]<(SCREEN_HEIGHT+200)){
+		if(y[i] > SCREEN_WIDTH + 200 || y[i] < -(SCREEN_WIDTH + 200)){
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i]), x+INCR,
+			(SCREEN_HEIGHT/2)-(y[i]));
+		}
+		else{
 			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i+1]), x-INCR,
 			(SCREEN_HEIGHT/2)-(y[i]));
 		}
