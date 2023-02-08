@@ -88,7 +88,7 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
   double d;
   y[0] = 0;
   i = (SCREEN_WIDTH/2);
-	SDL_SetRenderDrawColor(renderer, 255,20,20,255);
+	SDL_SetRenderDrawColor(renderer, 255,60,60,255);
 	for(x = (SCREEN_WIDTH/2)-INCR, d = 0;x<=SCREEN_WIDTH;x += INCR, i++,d++){
 		if(x == (SCREEN_WIDTH/2)-INCR){
 			d -= 1;
