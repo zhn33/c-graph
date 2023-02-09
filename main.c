@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 int y[SCREEN_WIDTH];
 static unsigned int INCR = 2;
 void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUNCTION);
@@ -96,13 +96,13 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
 			d += 1;
 		}
 		y[i]=100*tan(d/10);//(10*d)+100;
-		if(y[i] > SCREEN_WIDTH + 200 || y[i] < -(SCREEN_WIDTH + 200)){
-			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i]), x+INCR,
-			(SCREEN_HEIGHT/2)-(y[i]));
+		if(y[i] > SCREEN_WIDTH  || y[i] < -(SCREEN_WIDTH )){
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-((y[i])*INCR), x+INCR,
+			(SCREEN_HEIGHT/2)-((y[i])*INCR));
 		}
 		else{
-			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i-1]), x+INCR,
-			(SCREEN_HEIGHT/2)-(y[i]));
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-((y[i-1])*INCR), x+INCR,
+			(SCREEN_HEIGHT/2)-((y[i])*INCR));
 		}
 	}
 		printf("%d\n",y[320]);
@@ -114,7 +114,7 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
 			d -= 1;
 		}
 		y[i]=100*tan(d/10);
-		if(y[i] > SCREEN_WIDTH + 200 || y[i] < -(SCREEN_WIDTH + 200)){
+		if(y[i] > SCREEN_WIDTH  || y[i] < -(SCREEN_WIDTH )){
 			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i]), x+INCR,
 			(SCREEN_HEIGHT/2)-(y[i]));
 		}
