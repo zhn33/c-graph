@@ -9,8 +9,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 int y[SCREEN_WIDTH];
 static unsigned int INCR = 2;
 void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUNCTION);
@@ -48,9 +48,9 @@ SDL_Event event;
 int mouseX,mouseY;
 SDL_Rect* srcRect;
 SDL_Rect* dstRect;
-  SDL_Texture* srcTexture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_RGBA8888,
-		SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
-	SDL_SetRenderTarget(renderer ,srcTexture);
+SDL_Texture* srcTexture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_RGBA8888,
+						  SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
+SDL_SetRenderTarget(renderer ,srcTexture);
 srcRect->x = SCREEN_WIDTH/2;
 srcRect->y = SCREEN_HEIGHT/2;
 dstRect->w = SCREEN_WIDTH/2;
