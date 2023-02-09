@@ -1,6 +1,8 @@
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_keyboard.h>
+#include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_video.h>
@@ -31,8 +33,9 @@ int main( int argc, char* args[] ){
 	SDL_RenderClear(renderer);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderClear(renderer);
-	DrawLines(renderer,window);
-	DrawFunction(renderer,window, INCR,FUNCTION);
+	//DrawLines(renderer,window);
+	//DrawFunction(renderer,window, INCR,FUNCTION);
+	SDL_RenderPresent(renderer);
 	SDL_UpdateWindowSurface( window );
 	while(true){
 		Input(renderer,window, FUNCTION);
@@ -43,12 +46,26 @@ int main( int argc, char* args[] ){
 void Input(SDL_Renderer* renderer,SDL_Window* window, char* FUNCTION){
 SDL_Event event;
 int mouseX,mouseY;
+SDL_Rect* srcRect;
+SDL_Rect* dstRect;
+  SDL_Texture* srcTexture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_RGBA8888,
+		SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH, SCREEN_HEIGHT);
+	SDL_SetRenderTarget(renderer ,srcTexture);
+srcRect->x = SCREEN_WIDTH/2;
+srcRect->y = SCREEN_HEIGHT/2;
+dstRect->w = SCREEN_WIDTH/2;
+dstRect->h = SCREEN_HEIGHT/2;
 while( SDL_PollEvent( &event ) ){
 	switch( event.type ){
 		case SDL_MOUSEMOTION:{
 			SDL_GetMouseState( &mouseX, &mouseY);
 			printf("%d\n", y[SCREEN_WIDTH-(mouseX/INCR)]);
 			printf("%d\n", mouseX);
+			dstRect->x = 0;//mouseX;
+			dstRect->y = 0;//mouseY;
+			SDL_RenderCopy(renderer,srcTexture,NULL,dstRect);
+			SDL_SetRenderTarget(renderer, NULL);
+			SDL_UpdateWindowSurface( window );
 			break;
 		}
 		case SDL_KEYDOWN:
@@ -97,12 +114,12 @@ void DrawFunction(SDL_Renderer* renderer,SDL_Window* window, int INCR, char* FUN
 		}
 		y[i]=100*tan(d/10);//(10*d)+100;
 		if(y[i] > SCREEN_WIDTH  || y[i] < -(SCREEN_WIDTH )){
-			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-((y[i])*INCR), x+INCR,
-			(SCREEN_HEIGHT/2)-((y[i])*INCR));
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i]), x+INCR,
+			(SCREEN_HEIGHT/2)-(y[i]));
 		}
 		else{
-			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-((y[i-1])*INCR), x+INCR,
-			(SCREEN_HEIGHT/2)-((y[i])*INCR));
+			SDL_RenderDrawLine(renderer, x, (SCREEN_HEIGHT/2)-(y[i-1]), x+INCR,
+			(SCREEN_HEIGHT/2)-(y[i]));
 		}
 	}
 		printf("%d\n",y[320]);
